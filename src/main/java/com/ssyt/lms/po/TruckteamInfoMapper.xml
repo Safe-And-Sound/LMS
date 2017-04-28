@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssyt.lms.mapper.TruckteamInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ssyt.lms.po.TruckteamInfo" >
+    <id column="TruckTeam_Id" property="truckteamId" jdbcType="INTEGER" />
+    <result column="team_Name" property="teamName" jdbcType="VARCHAR" />
+    <result column="leader" property="leader" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="checkInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="isDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="alterTIme" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TruckTeam_Id, team_Name, leader, remark, checkInTime, isDelete, alterTIme
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssyt.lms.po.TruckteamInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from truckteam_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from truckteam_info
+    where TruckTeam_Id = #{truckteamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from truckteam_info
+    where TruckTeam_Id = #{truckteamId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssyt.lms.po.TruckteamInfoExample" >
+    delete from truckteam_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssyt.lms.po.TruckteamInfo" >
+    insert into truckteam_info (TruckTeam_Id, team_Name, leader, 
+      remark, checkInTime, isDelete, 
+      alterTIme)
+    values (#{truckteamId,jdbcType=INTEGER}, #{teamName,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{checkintime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, 
+      #{altertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssyt.lms.po.TruckteamInfo" >
+    insert into truckteam_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="truckteamId != null" >
+        TruckTeam_Id,
+      </if>
+      <if test="teamName != null" >
+        team_Name,
+      </if>
+      <if test="leader != null" >
+        leader,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="checkintime != null" >
+        checkInTime,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="altertime != null" >
+        alterTIme,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="truckteamId != null" >
+        #{truckteamId,jdbcType=INTEGER},
+      </if>
+      <if test="teamName != null" >
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssyt.lms.po.TruckteamInfoExample" resultType="java.lang.Integer" >
+    select count(*) from truckteam_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update truckteam_info
+    <set >
+      <if test="record.truckteamId != null" >
+        TruckTeam_Id = #{record.truckteamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teamName != null" >
+        team_Name = #{record.teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leader != null" >
+        leader = #{record.leader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        isDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        alterTIme = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update truckteam_info
+    set TruckTeam_Id = #{record.truckteamId,jdbcType=INTEGER},
+      team_Name = #{record.teamName,jdbcType=VARCHAR},
+      leader = #{record.leader,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{record.isdelete,jdbcType=INTEGER},
+      alterTIme = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssyt.lms.po.TruckteamInfo" >
+    update truckteam_info
+    <set >
+      <if test="teamName != null" >
+        team_Name = #{teamName,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        alterTIme = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TruckTeam_Id = #{truckteamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssyt.lms.po.TruckteamInfo" >
+    update truckteam_info
+    set team_Name = #{teamName,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      alterTIme = #{altertime,jdbcType=TIMESTAMP}
+    where TruckTeam_Id = #{truckteamId,jdbcType=INTEGER}
+  </update>
+</mapper>

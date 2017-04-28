@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssyt.lms.mapper.DriverInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ssyt.lms.po.DriverInfo" >
+    <id column="driver_Id" property="driverId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="team_Id" property="teamId" jdbcType="INTEGER" />
+    <result column="driver_state" property="driverState" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="checkInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="isDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="alterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    driver_Id, name, sex, birth, phone, idcard, team_Id, driver_state, remark, checkInTime, 
+    isDelete, alterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssyt.lms.po.DriverInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from driver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from driver_info
+    where driver_Id = #{driverId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from driver_info
+    where driver_Id = #{driverId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssyt.lms.po.DriverInfoExample" >
+    delete from driver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssyt.lms.po.DriverInfo" >
+    insert into driver_info (driver_Id, name, sex, 
+      birth, phone, idcard, 
+      team_Id, driver_state, remark, 
+      checkInTime, isDelete, alterTime
+      )
+    values (#{driverId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
+      #{birth,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{teamId,jdbcType=INTEGER}, #{driverState,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{checkintime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, #{altertime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssyt.lms.po.DriverInfo" >
+    insert into driver_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        driver_Id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="teamId != null" >
+        team_Id,
+      </if>
+      <if test="driverState != null" >
+        driver_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="checkintime != null" >
+        checkInTime,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="altertime != null" >
+        alterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="driverId != null" >
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="driverState != null" >
+        #{driverState,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssyt.lms.po.DriverInfoExample" resultType="java.lang.Integer" >
+    select count(*) from driver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update driver_info
+    <set >
+      <if test="record.driverId != null" >
+        driver_Id = #{record.driverId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null" >
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teamId != null" >
+        team_Id = #{record.teamId,jdbcType=INTEGER},
+      </if>
+      <if test="record.driverState != null" >
+        driver_state = #{record.driverState,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        isDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        alterTime = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update driver_info
+    set driver_Id = #{record.driverId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      birth = #{record.birth,jdbcType=TIMESTAMP},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      idcard = #{record.idcard,jdbcType=VARCHAR},
+      team_Id = #{record.teamId,jdbcType=INTEGER},
+      driver_state = #{record.driverState,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{record.isdelete,jdbcType=INTEGER},
+      alterTime = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssyt.lms.po.DriverInfo" >
+    update driver_info
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        team_Id = #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="driverState != null" >
+        driver_state = #{driverState,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        alterTime = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where driver_Id = #{driverId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssyt.lms.po.DriverInfo" >
+    update driver_info
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      team_Id = #{teamId,jdbcType=INTEGER},
+      driver_state = #{driverState,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      alterTime = #{altertime,jdbcType=TIMESTAMP}
+    where driver_Id = #{driverId,jdbcType=INTEGER}
+  </update>
+</mapper>

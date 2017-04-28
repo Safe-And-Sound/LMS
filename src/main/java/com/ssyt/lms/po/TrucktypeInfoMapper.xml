@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssyt.lms.mapper.TrucktypeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ssyt.lms.po.TrucktypeInfo" >
+    <id column="truckType_Id" property="trucktypeId" jdbcType="INTEGER" />
+    <result column="truckType_Name" property="trucktypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    truckType_Id, truckType_Name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssyt.lms.po.TrucktypeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from trucktype_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trucktype_info
+    where truckType_Id = #{trucktypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trucktype_info
+    where truckType_Id = #{trucktypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssyt.lms.po.TrucktypeInfoExample" >
+    delete from trucktype_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssyt.lms.po.TrucktypeInfo" >
+    insert into trucktype_info (truckType_Id, truckType_Name)
+    values (#{trucktypeId,jdbcType=INTEGER}, #{trucktypeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssyt.lms.po.TrucktypeInfo" >
+    insert into trucktype_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trucktypeId != null" >
+        truckType_Id,
+      </if>
+      <if test="trucktypeName != null" >
+        truckType_Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trucktypeId != null" >
+        #{trucktypeId,jdbcType=INTEGER},
+      </if>
+      <if test="trucktypeName != null" >
+        #{trucktypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssyt.lms.po.TrucktypeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from trucktype_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update trucktype_info
+    <set >
+      <if test="record.trucktypeId != null" >
+        truckType_Id = #{record.trucktypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.trucktypeName != null" >
+        truckType_Name = #{record.trucktypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update trucktype_info
+    set truckType_Id = #{record.trucktypeId,jdbcType=INTEGER},
+      truckType_Name = #{record.trucktypeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssyt.lms.po.TrucktypeInfo" >
+    update trucktype_info
+    <set >
+      <if test="trucktypeName != null" >
+        truckType_Name = #{trucktypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where truckType_Id = #{trucktypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssyt.lms.po.TrucktypeInfo" >
+    update trucktype_info
+    set truckType_Name = #{trucktypeName,jdbcType=VARCHAR}
+    where truckType_Id = #{trucktypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

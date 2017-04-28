@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssyt.lms.mapper.CarrierInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ssyt.lms.po.CarrierInfo" >
+    <id column="carrier_Id" property="carrierId" jdbcType="INTEGER" />
+    <result column="send_Company" property="sendCompany" jdbcType="VARCHAR" />
+    <result column="send_Address" property="sendAddress" jdbcType="VARCHAR" />
+    <result column="send_Linkman" property="sendLinkman" jdbcType="VARCHAR" />
+    <result column="send_Phone" property="sendPhone" jdbcType="VARCHAR" />
+    <result column="receive_Company" property="receiveCompany" jdbcType="VARCHAR" />
+    <result column="receive_Address" property="receiveAddress" jdbcType="VARCHAR" />
+    <result column="receive_Linkman" property="receiveLinkman" jdbcType="VARCHAR" />
+    <result column="receive_Phone" property="receivePhone" jdbcType="VARCHAR" />
+    <result column="leaver_Date" property="leaverDate" jdbcType="TIMESTAMP" />
+    <result column="receive_Date" property="receiveDate" jdbcType="TIMESTAMP" />
+    <result column="carrier_state" property="carrierState" jdbcType="INTEGER" />
+    <result column="insurance_Cost" property="insuranceCost" jdbcType="DOUBLE" />
+    <result column="transport_Cost" property="transportCost" jdbcType="DOUBLE" />
+    <result column="other_Cost" property="otherCost" jdbcType="DOUBLE" />
+    <result column="total_Cost" property="totalCost" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="user_Id" property="userId" jdbcType="INTEGER" />
+    <result column="checkInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="is_Delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="alter_Time" property="alterTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    carrier_Id, send_Company, send_Address, send_Linkman, send_Phone, receive_Company, 
+    receive_Address, receive_Linkman, receive_Phone, leaver_Date, receive_Date, carrier_state, 
+    insurance_Cost, transport_Cost, other_Cost, total_Cost, remark, user_Id, checkInTime, 
+    is_Delete, alter_Time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssyt.lms.po.CarrierInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from carrier_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from carrier_info
+    where carrier_Id = #{carrierId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from carrier_info
+    where carrier_Id = #{carrierId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssyt.lms.po.CarrierInfoExample" >
+    delete from carrier_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssyt.lms.po.CarrierInfo" >
+    insert into carrier_info (carrier_Id, send_Company, send_Address, 
+      send_Linkman, send_Phone, receive_Company, 
+      receive_Address, receive_Linkman, receive_Phone, 
+      leaver_Date, receive_Date, carrier_state, 
+      insurance_Cost, transport_Cost, other_Cost, 
+      total_Cost, remark, user_Id, 
+      checkInTime, is_Delete, alter_Time
+      )
+    values (#{carrierId,jdbcType=INTEGER}, #{sendCompany,jdbcType=VARCHAR}, #{sendAddress,jdbcType=VARCHAR}, 
+      #{sendLinkman,jdbcType=VARCHAR}, #{sendPhone,jdbcType=VARCHAR}, #{receiveCompany,jdbcType=VARCHAR}, 
+      #{receiveAddress,jdbcType=VARCHAR}, #{receiveLinkman,jdbcType=VARCHAR}, #{receivePhone,jdbcType=VARCHAR}, 
+      #{leaverDate,jdbcType=TIMESTAMP}, #{receiveDate,jdbcType=TIMESTAMP}, #{carrierState,jdbcType=INTEGER}, 
+      #{insuranceCost,jdbcType=DOUBLE}, #{transportCost,jdbcType=DOUBLE}, #{otherCost,jdbcType=DOUBLE}, 
+      #{totalCost,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{checkintime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=INTEGER}, #{alterTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssyt.lms.po.CarrierInfo" >
+    insert into carrier_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carrierId != null" >
+        carrier_Id,
+      </if>
+      <if test="sendCompany != null" >
+        send_Company,
+      </if>
+      <if test="sendAddress != null" >
+        send_Address,
+      </if>
+      <if test="sendLinkman != null" >
+        send_Linkman,
+      </if>
+      <if test="sendPhone != null" >
+        send_Phone,
+      </if>
+      <if test="receiveCompany != null" >
+        receive_Company,
+      </if>
+      <if test="receiveAddress != null" >
+        receive_Address,
+      </if>
+      <if test="receiveLinkman != null" >
+        receive_Linkman,
+      </if>
+      <if test="receivePhone != null" >
+        receive_Phone,
+      </if>
+      <if test="leaverDate != null" >
+        leaver_Date,
+      </if>
+      <if test="receiveDate != null" >
+        receive_Date,
+      </if>
+      <if test="carrierState != null" >
+        carrier_state,
+      </if>
+      <if test="insuranceCost != null" >
+        insurance_Cost,
+      </if>
+      <if test="transportCost != null" >
+        transport_Cost,
+      </if>
+      <if test="otherCost != null" >
+        other_Cost,
+      </if>
+      <if test="totalCost != null" >
+        total_Cost,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="userId != null" >
+        user_Id,
+      </if>
+      <if test="checkintime != null" >
+        checkInTime,
+      </if>
+      <if test="isDelete != null" >
+        is_Delete,
+      </if>
+      <if test="alterTime != null" >
+        alter_Time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carrierId != null" >
+        #{carrierId,jdbcType=INTEGER},
+      </if>
+      <if test="sendCompany != null" >
+        #{sendCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAddress != null" >
+        #{sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendLinkman != null" >
+        #{sendLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPhone != null" >
+        #{sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCompany != null" >
+        #{receiveCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveLinkman != null" >
+        #{receiveLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePhone != null" >
+        #{receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="leaverDate != null" >
+        #{leaverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveDate != null" >
+        #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierState != null" >
+        #{carrierState,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceCost != null" >
+        #{insuranceCost,jdbcType=DOUBLE},
+      </if>
+      <if test="transportCost != null" >
+        #{transportCost,jdbcType=DOUBLE},
+      </if>
+      <if test="otherCost != null" >
+        #{otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCost != null" >
+        #{totalCost,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="alterTime != null" >
+        #{alterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssyt.lms.po.CarrierInfoExample" resultType="java.lang.Integer" >
+    select count(*) from carrier_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update carrier_info
+    <set >
+      <if test="record.carrierId != null" >
+        carrier_Id = #{record.carrierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendCompany != null" >
+        send_Company = #{record.sendCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendAddress != null" >
+        send_Address = #{record.sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendLinkman != null" >
+        send_Linkman = #{record.sendLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendPhone != null" >
+        send_Phone = #{record.sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveCompany != null" >
+        receive_Company = #{record.receiveCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveAddress != null" >
+        receive_Address = #{record.receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveLinkman != null" >
+        receive_Linkman = #{record.receiveLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivePhone != null" >
+        receive_Phone = #{record.receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaverDate != null" >
+        leaver_Date = #{record.leaverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receiveDate != null" >
+        receive_Date = #{record.receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.carrierState != null" >
+        carrier_state = #{record.carrierState,jdbcType=INTEGER},
+      </if>
+      <if test="record.insuranceCost != null" >
+        insurance_Cost = #{record.insuranceCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.transportCost != null" >
+        transport_Cost = #{record.transportCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.otherCost != null" >
+        other_Cost = #{record.otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalCost != null" >
+        total_Cost = #{record.totalCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkintime != null" >
+        checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDelete != null" >
+        is_Delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.alterTime != null" >
+        alter_Time = #{record.alterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update carrier_info
+    set carrier_Id = #{record.carrierId,jdbcType=INTEGER},
+      send_Company = #{record.sendCompany,jdbcType=VARCHAR},
+      send_Address = #{record.sendAddress,jdbcType=VARCHAR},
+      send_Linkman = #{record.sendLinkman,jdbcType=VARCHAR},
+      send_Phone = #{record.sendPhone,jdbcType=VARCHAR},
+      receive_Company = #{record.receiveCompany,jdbcType=VARCHAR},
+      receive_Address = #{record.receiveAddress,jdbcType=VARCHAR},
+      receive_Linkman = #{record.receiveLinkman,jdbcType=VARCHAR},
+      receive_Phone = #{record.receivePhone,jdbcType=VARCHAR},
+      leaver_Date = #{record.leaverDate,jdbcType=TIMESTAMP},
+      receive_Date = #{record.receiveDate,jdbcType=TIMESTAMP},
+      carrier_state = #{record.carrierState,jdbcType=INTEGER},
+      insurance_Cost = #{record.insuranceCost,jdbcType=DOUBLE},
+      transport_Cost = #{record.transportCost,jdbcType=DOUBLE},
+      other_Cost = #{record.otherCost,jdbcType=DOUBLE},
+      total_Cost = #{record.totalCost,jdbcType=DOUBLE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      user_Id = #{record.userId,jdbcType=INTEGER},
+      checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      is_Delete = #{record.isDelete,jdbcType=INTEGER},
+      alter_Time = #{record.alterTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssyt.lms.po.CarrierInfo" >
+    update carrier_info
+    <set >
+      <if test="sendCompany != null" >
+        send_Company = #{sendCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAddress != null" >
+        send_Address = #{sendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendLinkman != null" >
+        send_Linkman = #{sendLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPhone != null" >
+        send_Phone = #{sendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCompany != null" >
+        receive_Company = #{receiveCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null" >
+        receive_Address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveLinkman != null" >
+        receive_Linkman = #{receiveLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePhone != null" >
+        receive_Phone = #{receivePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="leaverDate != null" >
+        leaver_Date = #{leaverDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveDate != null" >
+        receive_Date = #{receiveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierState != null" >
+        carrier_state = #{carrierState,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceCost != null" >
+        insurance_Cost = #{insuranceCost,jdbcType=DOUBLE},
+      </if>
+      <if test="transportCost != null" >
+        transport_Cost = #{transportCost,jdbcType=DOUBLE},
+      </if>
+      <if test="otherCost != null" >
+        other_Cost = #{otherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCost != null" >
+        total_Cost = #{totalCost,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_Delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="alterTime != null" >
+        alter_Time = #{alterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where carrier_Id = #{carrierId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssyt.lms.po.CarrierInfo" >
+    update carrier_info
+    set send_Company = #{sendCompany,jdbcType=VARCHAR},
+      send_Address = #{sendAddress,jdbcType=VARCHAR},
+      send_Linkman = #{sendLinkman,jdbcType=VARCHAR},
+      send_Phone = #{sendPhone,jdbcType=VARCHAR},
+      receive_Company = #{receiveCompany,jdbcType=VARCHAR},
+      receive_Address = #{receiveAddress,jdbcType=VARCHAR},
+      receive_Linkman = #{receiveLinkman,jdbcType=VARCHAR},
+      receive_Phone = #{receivePhone,jdbcType=VARCHAR},
+      leaver_Date = #{leaverDate,jdbcType=TIMESTAMP},
+      receive_Date = #{receiveDate,jdbcType=TIMESTAMP},
+      carrier_state = #{carrierState,jdbcType=INTEGER},
+      insurance_Cost = #{insuranceCost,jdbcType=DOUBLE},
+      transport_Cost = #{transportCost,jdbcType=DOUBLE},
+      other_Cost = #{otherCost,jdbcType=DOUBLE},
+      total_Cost = #{totalCost,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      user_Id = #{userId,jdbcType=INTEGER},
+      checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      is_Delete = #{isDelete,jdbcType=INTEGER},
+      alter_Time = #{alterTime,jdbcType=TIMESTAMP}
+    where carrier_Id = #{carrierId,jdbcType=INTEGER}
+  </update>
+</mapper>

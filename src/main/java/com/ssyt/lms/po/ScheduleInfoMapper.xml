@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssyt.lms.mapper.ScheduleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ssyt.lms.po.ScheduleInfo" >
+    <id column="schedule_Id" property="scheduleId" jdbcType="INTEGER" />
+    <result column="start_Time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="carrier_Id" property="carrierId" jdbcType="INTEGER" />
+    <result column="truck_Id" property="truckId" jdbcType="INTEGER" />
+    <result column="oilCost" property="oilcost" jdbcType="DOUBLE" />
+    <result column="toll" property="toll" jdbcType="DOUBLE" />
+    <result column="fine" property="fine" jdbcType="DOUBLE" />
+    <result column="otherCost" property="othercost" jdbcType="DOUBLE" />
+    <result column="totalCost" property="totalcost" jdbcType="DOUBLE" />
+    <result column="user_Id" property="userId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="checkInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="isDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="alterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    schedule_Id, start_Time, carrier_Id, truck_Id, oilCost, toll, fine, otherCost, totalCost, 
+    user_Id, remark, checkInTime, isDelete, alterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssyt.lms.po.ScheduleInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from schedule_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schedule_info
+    where schedule_Id = #{scheduleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schedule_info
+    where schedule_Id = #{scheduleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssyt.lms.po.ScheduleInfoExample" >
+    delete from schedule_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssyt.lms.po.ScheduleInfo" >
+    insert into schedule_info (schedule_Id, start_Time, carrier_Id, 
+      truck_Id, oilCost, toll, fine, 
+      otherCost, totalCost, user_Id, 
+      remark, checkInTime, isDelete, 
+      alterTime)
+    values (#{scheduleId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{carrierId,jdbcType=INTEGER}, 
+      #{truckId,jdbcType=INTEGER}, #{oilcost,jdbcType=DOUBLE}, #{toll,jdbcType=DOUBLE}, #{fine,jdbcType=DOUBLE}, 
+      #{othercost,jdbcType=DOUBLE}, #{totalcost,jdbcType=DOUBLE}, #{userId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{checkintime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, 
+      #{altertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssyt.lms.po.ScheduleInfo" >
+    insert into schedule_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scheduleId != null" >
+        schedule_Id,
+      </if>
+      <if test="startTime != null" >
+        start_Time,
+      </if>
+      <if test="carrierId != null" >
+        carrier_Id,
+      </if>
+      <if test="truckId != null" >
+        truck_Id,
+      </if>
+      <if test="oilcost != null" >
+        oilCost,
+      </if>
+      <if test="toll != null" >
+        toll,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="othercost != null" >
+        otherCost,
+      </if>
+      <if test="totalcost != null" >
+        totalCost,
+      </if>
+      <if test="userId != null" >
+        user_Id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="checkintime != null" >
+        checkInTime,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="altertime != null" >
+        alterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scheduleId != null" >
+        #{scheduleId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierId != null" >
+        #{carrierId,jdbcType=INTEGER},
+      </if>
+      <if test="truckId != null" >
+        #{truckId,jdbcType=INTEGER},
+      </if>
+      <if test="oilcost != null" >
+        #{oilcost,jdbcType=DOUBLE},
+      </if>
+      <if test="toll != null" >
+        #{toll,jdbcType=DOUBLE},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=DOUBLE},
+      </if>
+      <if test="othercost != null" >
+        #{othercost,jdbcType=DOUBLE},
+      </if>
+      <if test="totalcost != null" >
+        #{totalcost,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssyt.lms.po.ScheduleInfoExample" resultType="java.lang.Integer" >
+    select count(*) from schedule_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update schedule_info
+    <set >
+      <if test="record.scheduleId != null" >
+        schedule_Id = #{record.scheduleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startTime != null" >
+        start_Time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.carrierId != null" >
+        carrier_Id = #{record.carrierId,jdbcType=INTEGER},
+      </if>
+      <if test="record.truckId != null" >
+        truck_Id = #{record.truckId,jdbcType=INTEGER},
+      </if>
+      <if test="record.oilcost != null" >
+        oilCost = #{record.oilcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.toll != null" >
+        toll = #{record.toll,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fine != null" >
+        fine = #{record.fine,jdbcType=DOUBLE},
+      </if>
+      <if test="record.othercost != null" >
+        otherCost = #{record.othercost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.totalcost != null" >
+        totalCost = #{record.totalcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.userId != null" >
+        user_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        isDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        alterTime = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update schedule_info
+    set schedule_Id = #{record.scheduleId,jdbcType=INTEGER},
+      start_Time = #{record.startTime,jdbcType=TIMESTAMP},
+      carrier_Id = #{record.carrierId,jdbcType=INTEGER},
+      truck_Id = #{record.truckId,jdbcType=INTEGER},
+      oilCost = #{record.oilcost,jdbcType=DOUBLE},
+      toll = #{record.toll,jdbcType=DOUBLE},
+      fine = #{record.fine,jdbcType=DOUBLE},
+      otherCost = #{record.othercost,jdbcType=DOUBLE},
+      totalCost = #{record.totalcost,jdbcType=DOUBLE},
+      user_Id = #{record.userId,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      checkInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{record.isdelete,jdbcType=INTEGER},
+      alterTime = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssyt.lms.po.ScheduleInfo" >
+    update schedule_info
+    <set >
+      <if test="startTime != null" >
+        start_Time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carrierId != null" >
+        carrier_Id = #{carrierId,jdbcType=INTEGER},
+      </if>
+      <if test="truckId != null" >
+        truck_Id = #{truckId,jdbcType=INTEGER},
+      </if>
+      <if test="oilcost != null" >
+        oilCost = #{oilcost,jdbcType=DOUBLE},
+      </if>
+      <if test="toll != null" >
+        toll = #{toll,jdbcType=DOUBLE},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=DOUBLE},
+      </if>
+      <if test="othercost != null" >
+        otherCost = #{othercost,jdbcType=DOUBLE},
+      </if>
+      <if test="totalcost != null" >
+        totalCost = #{totalcost,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null" >
+        user_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        alterTime = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where schedule_Id = #{scheduleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssyt.lms.po.ScheduleInfo" >
+    update schedule_info
+    set start_Time = #{startTime,jdbcType=TIMESTAMP},
+      carrier_Id = #{carrierId,jdbcType=INTEGER},
+      truck_Id = #{truckId,jdbcType=INTEGER},
+      oilCost = #{oilcost,jdbcType=DOUBLE},
+      toll = #{toll,jdbcType=DOUBLE},
+      fine = #{fine,jdbcType=DOUBLE},
+      otherCost = #{othercost,jdbcType=DOUBLE},
+      totalCost = #{totalcost,jdbcType=DOUBLE},
+      user_Id = #{userId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      checkInTime = #{checkintime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      alterTime = #{altertime,jdbcType=TIMESTAMP}
+    where schedule_Id = #{scheduleId,jdbcType=INTEGER}
+  </update>
+</mapper>
